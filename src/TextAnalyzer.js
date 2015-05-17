@@ -45,9 +45,17 @@ var TextAnalyzer = function(){
    */
   this.__consonantsStats;
   /**
-   * Whever the cache is clean or dirty.
+   * How many consonants have been found in the string.
    */
-  this.__dirty = true;
+  this.__totalConsonants;
+  /**
+   * How many vowels have been found in the string.
+   */
+  this.__totalVowels;
+  /**
+   * Whenever the cache is clean or dirty.
+   */
+  this.__dirty;
 
 	this.setText('');
 }
@@ -66,6 +74,8 @@ _.extend(TextAnalyzer.prototype, {
     this.__processedText   = void 0;
     this.__vowelsStats     = void 0;
     this.__consonantsStats = void 0;
+    this.__totalConsonants = void 0;
+    this.__totalVowels     = void 0;
     this.__dirty           = true;
     this.__updateStats();
 	},
@@ -126,8 +136,8 @@ _.extend(TextAnalyzer.prototype, {
   __analyzeText: function(){
     // Map letter to their frequency.
     var letter;
-    var letterMap = {};
-    var l = this.__processedText.length;
+    var letterMap          = {};
+    var l                  = this.__processedText.length;
     while(l--){
       letter = this.__processedText[l];
       if(!letterMap[letter]){
@@ -137,18 +147,22 @@ _.extend(TextAnalyzer.prototype, {
       }
     }
     // Divide letter in vowels and consonants.
-    var vowelsStats = [];
+    this.__totalConsonants = 0;
+    this.__totalVowels     = 0;
     var consonantsStats = [];
+    var vowelsStats = [];
     var o;
     _.forEach(letterMap, function(times, letter){
       o = {
         letter : letter,
         times  : times
       }
-      if(this.__isVowel(letter)){
-        vowelsStats.push(o);
-      }else if(this.__isConsonant(letter)){
+      if(this.__isConsonant(letter)){
         consonantsStats.push(o);
+        this.__totalConsonants += times;
+      }else if(this.__isVowel(letter)){
+        vowelsStats.push(o);
+        this.__totalVowels += times;
       }
     }.bind(this));
     this.__vowelsStats     = _.sortBy(vowelsStats, 'times').reverse();
@@ -159,14 +173,14 @@ _.extend(TextAnalyzer.prototype, {
 	 * @return {Number} Returns the number of consonants.
 	 */
 	getConsonants: function(){
-		return 0;
+		return this.__totalConsonants;
 	},
 
 	/**
 	 * @return {Number} Returns the number of vowels.
 	 */
 	getVowels: function(){
-		return 0;
+		return this.__totalVowels;
 	},
 
 	/**

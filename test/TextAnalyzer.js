@@ -16,7 +16,7 @@ describe('TextAnalyzer', function(){
 
   it('should return the number of vowels that appear in the text', function(){
     textAnalyzer.setText(text);
-    expect(textAnalyzer.getVowels()).to.be.equal(21);
+    expect(textAnalyzer.getVowels()).to.be.equal(18);
   })
 
   it('should count accented vowels', function(){
@@ -26,7 +26,7 @@ describe('TextAnalyzer', function(){
 
   it('should count accented consonants', function(){
     textAnalyzer.setText('ňř');
-    expect(textAnalyzer.getVowels()).to.be.equal(2);
+    expect(textAnalyzer.getConsonants()).to.be.equal(2);
   })
 
   it('should return the top 3 consonants and how many times they appear in the text.', function(){
