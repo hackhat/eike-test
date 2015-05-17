@@ -36,11 +36,25 @@ var TextAnalyzer = function(){
 	 * Text in a format that is easy to process.
 	 */
 	this.__processedText;
+  /**
+   * Cached stats about vowels.
+   */
+  this.__vowelsStats;
+  /**
+   * Cached stats about consonants.
+   */
+  this.__consonantsStats;
+  /**
+   * Whever the cache is clean or dirty.
+   */
+  this.__dirty = true;
 
 	this.setText('');
 }
 
 TextAnalyzer.__vowels = 'aeiou';
+// Characters between a and z except the vowels.
+TextAnalyzer.__consonantRegExp = new RegExp('(?![' + TextAnalyzer.__vowels + '])[a-z]'); 
 
 _.extend(TextAnalyzer.prototype, {
 	/**
@@ -48,8 +62,12 @@ _.extend(TextAnalyzer.prototype, {
 	 * @param {String} text
 	 */
 	setText: function(text){
-		this.__originalText = text;
-		this.__processedText = this.__processText(text);
+    this.__originalText    = text;
+    this.__processedText   = void 0;
+    this.__vowelsStats     = void 0;
+    this.__consonantsStats = void 0;
+    this.__dirty           = true;
+    this.__updateStats();
 	},
 
 	/**
@@ -57,6 +75,7 @@ _.extend(TextAnalyzer.prototype, {
 	 *  - Makes all chars to lower case;
 	 *  - Remoes all accented chars;
 	 * Doesn't change any internal variables, it's just a helper.
+   * @private 
 	 * @param  {String} text
 	 * @return {String} processed text
 	 */
@@ -64,12 +83,76 @@ _.extend(TextAnalyzer.prototype, {
 		return latinize(text.toLowerCase());
 	},
 
+  /**
+   * Checks if a letter is a vowel.
+   * @param  {String} letter A string with a single letter.
+   * @return {Boolean} Returns true if is a vowel, false in other cases.
+   */
   __isVowel: function(letter){
     return TextAnalyzer.__vowels.indexOf(letter) >= 0;
   },
 
-  __analyzeText: function(){
+  /**
+   * Checks if a letter is a consonant.
+   * @param  {String} letter A string with a single letter.
+   * @return {Boolean} Returns true if is a consonant, false in other cases.
+   */
+  __isConsonant: function(letter){
+    // As letter is always a 1 letter if the regexp finds any matches
+    // that match will always be at index 0. If no matches are found the
+    // regexp returns -1.
+    return letter.search(TextAnalyzer.__consonantRegExp) === 0;
+  },
 
+  /**
+   * Updates the stats only if is dirty.
+   * @private
+   */
+  __updateStats: function(){
+    if(!this.__dirty) return;
+    this.__processedText = this.__processText(this.__originalText);
+    this.__analyzeText();
+    this.__dirty = false;
+  },
+
+  /**
+   * Because the use case for this class is to get a lot of infomation about a certain
+   * text then we process the text in one batch and cache the results instead of 
+   * calculating each time the vowels and so on.
+   * Using a cache is a trade-off because makes more rigid but increases the performance
+   * if all stats are used over a certain text.
+   * @private
+   */
+  __analyzeText: function(){
+    // Map letter to their frequency.
+    var letter;
+    var letterMap = {};
+    var l = this.__processedText.length;
+    while(l--){
+      letter = this.__processedText[l];
+      if(!letterMap[letter]){
+        letterMap[letter] = 1;
+      }else{
+        letterMap[letter]++;
+      }
+    }
+    // Divide letter in vowels and consonants.
+    var vowelsStats = [];
+    var consonantsStats = [];
+    var o;
+    _.forEach(letterMap, function(times, letter){
+      o = {
+        letter : letter,
+        times  : times
+      }
+      if(this.__isVowel(letter)){
+        vowelsStats.push(o);
+      }else if(this.__isConsonant(letter)){
+        consonantsStats.push(o);
+      }
+    }.bind(this));
+    this.__vowelsStats     = _.sortBy(vowelsStats, 'times').reverse();
+    this.__consonantsStats = _.sortBy(consonantsStats, 'times').reverse();
   },
 
 	/**
@@ -93,7 +176,8 @@ _.extend(TextAnalyzer.prototype, {
 	 *                    contains the number of times that letter is contained in the text.
 	 */
 	getTopConsonants: function(n){
-		return [];
+    n = n || Infinity;
+    return this.__consonantsStats.slice(0, n);
 	},
 
 	/**
@@ -104,25 +188,7 @@ _.extend(TextAnalyzer.prototype, {
 	 */
 	getTopVowels: function(n){
     n = n || Infinity;
-    var letter;
-    var letterMap = {};
-    var l = this.__processedText.length;
-    while(l--){
-      letter = this.__processedText[l];
-      if(!this.__isVowel(letter)) continue;
-      if(!letterMap[letter]){
-        letterMap[letter] = 1;
-      }else{
-        letterMap[letter]++;
-      }
-    }
-    var letterMapAsArray = _.map(letterMap, function(times, letter){
-      return {
-        letter : letter,
-        times  : times
-      }
-    })
-		return _.sortBy(letterMapAsArray, 'times').reverse().slice(0, n);
+		return this.__vowelsStats.slice(0, n);
 	}
 })
 
