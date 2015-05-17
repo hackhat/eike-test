@@ -8,7 +8,7 @@ var latinize = require('latinize');
  *
  *   var textAnalyzer = new TextAnalyzer();
  *
- * Set the text that you want to analyze:
+ * Set the text that you want to analyze (by default is an empty string):
  *
  *   textAnalyzer.setText('some text that you want to analyze');
  *
@@ -131,6 +131,7 @@ _.extend(TextAnalyzer.prototype, {
    * calculating each time the vowels and so on.
    * Using a cache is a trade-off because makes more rigid but increases the performance
    * if all stats are used over a certain text.
+   * @todo: This logic can be encapsulated in a utility class.
    * @private
    */
   __analyzeText: function(){
