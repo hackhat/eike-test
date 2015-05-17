@@ -40,6 +40,8 @@ var TextAnalyzer = function(){
 	this.setText('');
 }
 
+TextAnalyzer.__vowels = 'aeiou';
+
 _.extend(TextAnalyzer.prototype, {
 	/**
 	 * Sets the text that TextAnalyzer will analyze.
@@ -62,6 +64,14 @@ _.extend(TextAnalyzer.prototype, {
 		return latinize(text.toLowerCase());
 	},
 
+  __isVowel: function(letter){
+    return TextAnalyzer.__vowels.indexOf(letter) >= 0;
+  },
+
+  __analyzeText: function(){
+
+  },
+
 	/**
 	 * @return {Number} Returns the number of consonants.
 	 */
@@ -77,6 +87,7 @@ _.extend(TextAnalyzer.prototype, {
 	},
 
 	/**
+   * @param {Number} [n=Infinity] The number of vowels to return;
 	 * @return {Object[]} Returns an array of objects ordered by the consonant with the higher frequency.
 	 *                    The object has a "letter" key which contains the letter value and a "times" key which
 	 *                    contains the number of times that letter is contained in the text.
@@ -86,12 +97,32 @@ _.extend(TextAnalyzer.prototype, {
 	},
 
 	/**
+   * @param {Number} [n=Infinity] The number of vowels to return; 
 	 * @return {Object[]} Returns an array of objects ordered by the consonant with the higher frequency.
 	 *                    The object has a "letter" key which contains the letter value and a "times" key which
 	 *                    contains the number of times that letter is contained in the text.
 	 */
 	getTopVowels: function(n){
-		return [];
+    n = n || Infinity;
+    var letter;
+    var letterMap = {};
+    var l = this.__processedText.length;
+    while(l--){
+      letter = this.__processedText[l];
+      if(!this.__isVowel(letter)) continue;
+      if(!letterMap[letter]){
+        letterMap[letter] = 1;
+      }else{
+        letterMap[letter]++;
+      }
+    }
+    var letterMapAsArray = _.map(letterMap, function(times, letter){
+      return {
+        letter : letter,
+        times  : times
+      }
+    })
+		return _.sortBy(letterMapAsArray, 'times').reverse().slice(0, n);
 	}
 })
 
