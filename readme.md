@@ -1,13 +1,22 @@
-Process:
+## Setup
+
+Run `npm install`.
+
+To run in dev mode run the command `grunt serve`.
+
+
+## Process:
 
  - Generated project with webapp generator: In this way everything is already setup
    and I can focus on the task instead of the setup of the project.
  - Created tests;
+ - Implemented the logic code;
+ - Implemented the user interface;
 
 
 
-Programming assignment:
-===================
+
+## Programming assignment:
 
 The goal is to allow the user to type in a text area and display the following information about the text that is typed:
 1) number of consonants that appear in the text
