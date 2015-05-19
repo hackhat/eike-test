@@ -1,3 +1,10 @@
+<p align="center">
+  <img src ="./docs/repo-header.gif" />
+</p>
+
+**[Live example](https://rawgit.com/hackhat/eike-test/v0.0.1/dist/index.html)**
+
+
 ## Setup
 
 **Install**: Clone and run `npm install`.
