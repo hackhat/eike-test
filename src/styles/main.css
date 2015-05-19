@@ -22,6 +22,7 @@ time, mark, audio, video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  font-family: sans-serif;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -50,13 +51,71 @@ table {
 
 
 
-html, body {
-  background: #222222;
+html {
+  background: hsl(212, 48%, 34%);
+  transition: 1s all;
+}
+html:hover {
+  background: hsl(212, 62%, 29%);
 }
 
+.root {
+  width      : 100%;
+  max-width  : 640px;
+  margin     : 10px auto 0 auto;
+  box-sizing : border-box;
+  display    : block;
+  background : hsl(212, 100%, 59%);
+  color      : hsl(212, 100%, 96%);
+  transition : 0.3s all;
+}
+
+.root:hover {
+  background: hsl(212, 100%, 52%);
+}
 
 #input {
-  width: 100%;
-  max-width: 640px;
-  margin: 0 auto;
+  width      : 100%;
+  max-width  : 100%; /* Limit to 100% width even if you enlarge it in chrome.*/
+  box-sizing : border-box;
+  padding    : 5px;
+  border     : 0px;
+}
+
+.top-section {
+  overflow: hidden;
+}
+
+.box {
+  width   : 45%;
+  padding : 10px;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.letter-stats {
+  margin-top  : 10px;
+}
+
+  .letter-stats > span {
+    display     : block;
+    line-height : 23px;
+  }
+
+.big-number {
+  font-size: 30px;
+}
+
+@media (max-width: 400px) {
+  .box {
+    width         : 100%;
+    float         : none !important;
+    border-bottom : 1px solid hsl(0, 100%, 100%);
+  }
 }
