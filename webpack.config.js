@@ -6,6 +6,7 @@
  */
 'use strict';
 var webpack = require('webpack');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
 
   output: {
@@ -44,9 +45,9 @@ module.exports = {
       test: /\.js$/,
       exclude: /node_modules/,
       loader: 'babel-loader'
-    }, {
-      test: /\.css$/,
-      loader: 'style-loader!css-loader'
+    }, { 
+      test: /\.css$/, 
+      loader: ExtractTextPlugin.extract("style-loader", "css-loader") 
     }, {
       test: /\.(png|jpg|woff|woff2)$/,
       loader: 'url-loader?limit=8192'
@@ -54,7 +55,8 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin("styles.css")
   ]
 
 };
