@@ -10,7 +10,6 @@
   "mainInput": "EikeApp",
   "mainOutput": "main",
   "dependencies": {
-    "autopolyfiller-loader": "^0.3.2",
     "latinize": "^0.2.0",
     "lodash": "^3.8.0",
     "normalize.css": "~3.0.3",

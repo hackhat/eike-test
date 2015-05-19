@@ -50,13 +50,7 @@ module.exports = {
     }, {
       test: /\.(png|jpg|woff|woff2)$/,
       loader: 'url-loader?limit=8192'
-    }],
-    postLoaders: [ {
-        test: /\.js$/,
-        exclude: /\/(node_modules|bower_components)\//,
-        loader: 'autopolyfiller',
-        query: { browsers: [ 'last 2 versions', 'ie >= 8' ] }
-    } ]
+    }]
   },
 
   plugins: [
