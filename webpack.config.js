@@ -18,7 +18,7 @@ module.exports = {
   debug: true,
   devtool: false,
   entry: [
-      'webpack/hot/only-dev-server',
+      // 'webpack/hot/only-dev-server',
       './src/components/EikeApp.js'
   ],
 
@@ -44,7 +44,7 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: 'react-hot!babel-loader'
+      loader: 'babel-loader'
     }, {
       test: /\.css$/,
       loader: 'style-loader!css-loader'
@@ -55,7 +55,6 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ]
 
