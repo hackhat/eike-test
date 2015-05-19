@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 
 describe('TextAnalyzer', function(){
-  var TextAnalyzer = require('../src/TextAnalyzer');
+  var TextAnalyzer = require('../src/components/TextAnalyzer');
   var text = 'I am a software engineer with broad experience...'
   var textAnalyzer;
 
