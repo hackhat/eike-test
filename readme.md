@@ -1,8 +1,10 @@
 ## Setup
 
-Run `npm install`.
+**Install**: Clone and run `npm install`.
 
-To run in dev mode run the command `grunt serve`.
+**Dev mode**: To run in dev mode run the command `grunt serve`.
+
+**Tests**: To run tests you need to run the command `mocha` (you have to install it previously globally).
 
 
 ## Process:
