@@ -26,7 +26,6 @@
  - Added compatibility with +IE8;
 
 
-
 ## Programming assignment:
 
 The goal is to allow the user to type in a text area and display the following information about the text that is typed:
@@ -39,9 +38,20 @@ This all has to update as the user is typing.
 We'd like to see how you would handle this problem without using any MV* frameworks.
 jQuery or utility libraries are okay if you feel like you need any.
 
-Things we would like to see:
+### Things we would like to see:
 
-- Unit tests (testing framework of your choice, headless or in-browser doesn't matter)
-- Efficient and fast. Typing shouldn't cause any freezing.
-- Separation of concerns. The DOM updates should be handled separately from the other logic.
-- It should also work in IE8+ (we'll have to support IE8 for the near future unfortunately).
+**Unit tests** (testing framework of your choice, headless or in-browser doesn't matter)
+
+The [logic](./src/components/TextAnalyzer.js) of the app has been tested [here](./test/TextAnalyzer.js).
+
+**Efficient and fast.** Typing shouldn't cause any freezing.
+
+Yes, you can test it [here](https://rawgit.com/hackhat/eike-test/v0.0.1/dist/index.html).
+
+**Separation of concerns.** The DOM updates should be handled separately from the other logic.
+
+The logic of the app is in the [TextAnalyzer.js](./src/components/TextAnalyzer.js) class and the view part of the app is in the [EikeApp](./src/components/EikeApp.js) module.
+
+**It should also work in IE8+** (we'll have to support IE8 for the near future unfortunately).
+
+Yes, has been tested with [browserstack](https://www.browserstack.com/start#os=Windows&os_version=7&browser=IE&browser_version=8.0&zoom_to_fit=true&full_screen=true&autofit=true&url=http%3A%2F%2Flocalhost%3A8000%2F&resolution=1024x768&speed=1&host_ports=google.com%2C80%2C0) (Win7 @ IE8), but you can also test it by opening [this link](https://rawgit.com/hackhat/eike-test/v0.0.1/dist/index.html) on IE8 browser.
