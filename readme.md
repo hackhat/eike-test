@@ -9,7 +9,7 @@
 
 **Install**: Clone and run `npm install`.
 
-**Dev mode**: To run in dev mode run the command `grunt serve`.
+**Dev mode**: To run in dev mode run the command `grunt serve` (If no browser opens go to: [http://localhost:8000/](http://localhost:8000/)).
 
 **Tests**: To run tests you need to run the command `mocha` (you have to install it previously globally).
 
@@ -21,7 +21,7 @@
  - Created tests;
  - Implemented the logic code;
  - Implemented the user interface;
-
+ - Added compatibility with +IE8;
 
 
 

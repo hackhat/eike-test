@@ -1,3 +1,4 @@
+"use strict";
 var _ = require('lodash');
 var latinize = require('latinize');
 
@@ -57,12 +58,12 @@ var TextAnalyzer = function(){
    */
   this.__dirty;
 
-	this.setText('');
-}
+  this.setText('');
+};
 
 TextAnalyzer.__vowels = 'aeiou';
 // Characters between a and z except the vowels.
-TextAnalyzer.__consonantRegExp = new RegExp('(?![' + TextAnalyzer.__vowels + '])[a-z]'); 
+TextAnalyzer.__consonantRegExp = new RegExp('(?![' + TextAnalyzer.__vowels + '])[a-z]');
 
 _.extend(TextAnalyzer.prototype, {
 	/**
@@ -85,7 +86,7 @@ _.extend(TextAnalyzer.prototype, {
 	 *  - Makes all chars to lower case;
 	 *  - Remoes all accented chars;
 	 * Doesn't change any internal variables, it's just a helper.
-   * @private 
+   * @private
 	 * @param  {String} text
 	 * @return {String} processed text
 	 */
@@ -119,7 +120,7 @@ _.extend(TextAnalyzer.prototype, {
    * @private
    */
   __updateStats: function(){
-    if(!this.__dirty) return;
+    if(!this.__dirty){return;}
     this.__processedText = this.__processText(this.__originalText);
     this.__analyzeText();
     this.__dirty = false;
@@ -127,7 +128,7 @@ _.extend(TextAnalyzer.prototype, {
 
   /**
    * Because the use case for this class is to get a lot of infomation about a certain
-   * text then we process the text in one batch and cache the results instead of 
+   * text then we process the text in one batch and cache the results instead of
    * calculating each time the vowels and so on.
    * Using a cache is a trade-off because makes more rigid but increases the performance
    * if all stats are used over a certain text.
@@ -153,19 +154,20 @@ _.extend(TextAnalyzer.prototype, {
     var consonantsStats = [];
     var vowelsStats = [];
     var o;
+    var that = this;
     _.forEach(letterMap, function(times, letter){
       o = {
         letter : letter,
         times  : times
-      }
-      if(this.__isConsonant(letter)){
+      };
+      if(that.__isConsonant(letter)){
         consonantsStats.push(o);
-        this.__totalConsonants += times;
-      }else if(this.__isVowel(letter)){
+        that.__totalConsonants += times;
+      }else if(that.__isVowel(letter)){
         vowelsStats.push(o);
-        this.__totalVowels += times;
+        that.__totalVowels += times;
       }
-    }.bind(this));
+    });
     this.__vowelsStats     = _.sortBy(vowelsStats, 'times').reverse();
     this.__consonantsStats = _.sortBy(consonantsStats, 'times').reverse();
   },
@@ -196,7 +198,7 @@ _.extend(TextAnalyzer.prototype, {
 	},
 
 	/**
-   * @param {Number} [n=Infinity] The number of vowels to return; 
+   * @param {Number} [n=Infinity] The number of vowels to return;
 	 * @return {Object[]} Returns an array of objects ordered by the consonant with the higher frequency.
 	 *                    The object has a "letter" key which contains the letter value and a "times" key which
 	 *                    contains the number of times that letter is contained in the text.
@@ -205,6 +207,6 @@ _.extend(TextAnalyzer.prototype, {
     n = n || Infinity;
 		return this.__vowelsStats.slice(0, n);
 	}
-})
+});
 
 module.exports = TextAnalyzer;
