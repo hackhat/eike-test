@@ -4,6 +4,9 @@
 
 **[Live example](https://rawgit.com/hackhat/eike-test/v0.0.1/dist/index.html)**
 
+This is a project that will count the consonants and vowel in a certain text. You just have to write some text in the top text input and your character statistics will be updated as you are typing in real time without any lag. 
+Below the number of consonants will be displayed the top 3 consonants and how many times they appeared in the text. The same happens for the vowels.
+
 
 ## Setup
 
@@ -47,6 +50,7 @@ The [logic](./src/components/TextAnalyzer.js) of the app has been tested [here](
 **Efficient and fast.** Typing shouldn't cause any freezing.
 
 Yes, you can test it [here](https://rawgit.com/hackhat/eike-test/v0.0.1/dist/index.html).
+There was no need to use a webworker in this case ([IE8 also doesn't support them](http://caniuse.com/#search=webworker)).
 
 **Separation of concerns.** The DOM updates should be handled separately from the other logic.
 
