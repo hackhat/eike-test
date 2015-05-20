@@ -13,6 +13,8 @@
 
 **Tests**: To run tests you need to run the command `mocha` (you have to install it previously globally).
 
+**Build**: To build the application run the command `grunt build` and then check the [./dist](./dist)) folder.
+
 
 ## Process:
 
