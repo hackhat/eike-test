@@ -59,7 +59,7 @@ The logic of the app is in the [TextAnalyzer.js](./src/components/TextAnalyzer.j
 **It should also work in IE8+** (we'll have to support IE8 for the near future unfortunately).
 
 <p align="center">
-  <img src ="./docs/IE8support.jpg" />
+  <img src ="./docs/ie8support.jpg" />
 </p>
 
 Yes, has been tested with [browserstack](https://www.browserstack.com/start#os=Windows&os_version=7&browser=IE&browser_version=8.0&zoom_to_fit=true&full_screen=true&autofit=true&url=http%3A%2F%2Flocalhost%3A8000%2F&resolution=1024x768&speed=1&host_ports=google.com%2C80%2C0) (Win7 @ IE8), but you can also test it by opening [this link](https://rawgit.com/hackhat/eike-test/v0.0.1/dist/index.html) on IE8 browser.
