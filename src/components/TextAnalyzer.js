@@ -1,5 +1,5 @@
 "use strict";
-var _ = require('lodash');
+var _        = require('lodash');
 var latinize = require('latinize');
 
 /**
@@ -29,14 +29,14 @@ var latinize = require('latinize');
  * But if you want to analyze 2 text in parallel you just create 2 TextAnalyzer instances.
  */
 var TextAnalyzer = function(){
-	/**
-	 * The text as set.
-	 */
-	this.__originalText;
-	/**
-	 * Text in a format that is easy to process.
-	 */
-	this.__processedText;
+  /**
+   * The text as set.
+   */
+  this.__originalText;
+  /**
+   * Text in a format that is easy to process.
+   */
+  this.__processedText;
   /**
    * Cached stats about vowels.
    */
@@ -66,33 +66,33 @@ TextAnalyzer.__vowels = 'aeiou';
 TextAnalyzer.__consonantRegExp = new RegExp('(?![' + TextAnalyzer.__vowels + '])[a-z]');
 
 _.extend(TextAnalyzer.prototype, {
-	/**
-	 * Sets the text that TextAnalyzer will analyze.
-	 * @param {String} text
-	 */
-	setText: function(text){
-    this.__originalText    = text;
+  /**
+   * Sets the text that TextAnalyzer will analyze.
+   * @param {String} text
+   */
+  setText: function(text){
+    this.__originalText  = text;
     this.__processedText   = void 0;
-    this.__vowelsStats     = void 0;
+    this.__vowelsStats   = void 0;
     this.__consonantsStats = void 0;
     this.__totalConsonants = void 0;
-    this.__totalVowels     = void 0;
-    this.__dirty           = true;
+    this.__totalVowels   = void 0;
+    this.__dirty       = true;
     this.__updateStats();
-	},
+  },
 
-	/**
-	 * Process text to be easier to count letters.
-	 *  - Makes all chars to lower case;
-	 *  - Remoes all accented chars;
-	 * Doesn't change any internal variables, it's just a helper.
+  /**
+   * Process text to be easier to count letters.
+   *  - Makes all chars to lower case;
+   *  - Remoes all accented chars;
+   * Doesn't change any internal variables, it's just a helper.
    * @private
-	 * @param  {String} text
-	 * @return {String} processed text
-	 */
-	__processText: function(text){
-		return latinize(text.toLowerCase());
-	},
+   * @param  {String} text
+   * @return {String} processed text
+   */
+  __processText: function(text){
+    return latinize(text.toLowerCase());
+  },
 
   /**
    * Checks if a letter is a vowel.
@@ -138,8 +138,8 @@ _.extend(TextAnalyzer.prototype, {
   __analyzeText: function(){
     // Map letter to their frequency.
     var letter;
-    var letterMap          = {};
-    var l                  = this.__processedText.length;
+    var letterMap = {};
+    var l         = this.__processedText.length;
     while(l--){
       letter = this.__processedText[l];
       if(!letterMap[letter]){
@@ -151,8 +151,8 @@ _.extend(TextAnalyzer.prototype, {
     // Divide letter in vowels and consonants.
     this.__totalConsonants = 0;
     this.__totalVowels     = 0;
-    var consonantsStats = [];
-    var vowelsStats = [];
+    var consonantsStats    = [];
+    var vowelsStats        = [];
     var o;
     var that = this;
     _.forEach(letterMap, function(times, letter){
@@ -172,41 +172,41 @@ _.extend(TextAnalyzer.prototype, {
     this.__consonantsStats = _.sortBy(consonantsStats, 'times').reverse();
   },
 
-	/**
-	 * @return {Number} Returns the number of consonants.
-	 */
-	getConsonants: function(){
-		return this.__totalConsonants;
-	},
+  /**
+   * @return {Number} Returns the number of consonants.
+   */
+  getConsonants: function(){
+    return this.__totalConsonants;
+  },
 
-	/**
-	 * @return {Number} Returns the number of vowels.
-	 */
-	getVowels: function(){
-		return this.__totalVowels;
-	},
+  /**
+   * @return {Number} Returns the number of vowels.
+   */
+  getVowels: function(){
+    return this.__totalVowels;
+  },
 
-	/**
+  /**
    * @param {Number} [n=Infinity] The number of vowels to return;
-	 * @return {Object[]} Returns an array of objects ordered by the consonant with the higher frequency.
-	 *                    The object has a "letter" key which contains the letter value and a "times" key which
-	 *                    contains the number of times that letter is contained in the text.
-	 */
-	getTopConsonants: function(n){
+   * @return {Object[]} Returns an array of objects ordered by the consonant with the higher frequency.
+   *          The object has a "letter" key which contains the letter value and a "times" key which
+   *          contains the number of times that letter is contained in the text.
+   */
+  getTopConsonants: function(n){
     n = n || Infinity;
     return this.__consonantsStats.slice(0, n);
-	},
+  },
 
-	/**
+  /**
    * @param {Number} [n=Infinity] The number of vowels to return;
-	 * @return {Object[]} Returns an array of objects ordered by the consonant with the higher frequency.
-	 *                    The object has a "letter" key which contains the letter value and a "times" key which
-	 *                    contains the number of times that letter is contained in the text.
-	 */
-	getTopVowels: function(n){
+   * @return {Object[]} Returns an array of objects ordered by the consonant with the higher frequency.
+   *          The object has a "letter" key which contains the letter value and a "times" key which
+   *          contains the number of times that letter is contained in the text.
+   */
+  getTopVowels: function(n){
     n = n || Infinity;
-		return this.__vowelsStats.slice(0, n);
-	}
+    return this.__vowelsStats.slice(0, n);
+  }
 });
 
 module.exports = TextAnalyzer;
