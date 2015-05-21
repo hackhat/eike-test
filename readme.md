@@ -2,7 +2,7 @@
   <img src ="./docs/repo-header.gif" />
 </p>
 
-**[Live example](https://rawgit.com/hackhat/eike-test/v0.0.1/dist/index.html)**
+**[Live example](https://rawgit.com/hackhat/eike-test/v0.0.2/dist/index.html)**
 
 This is a project that will count the consonants and vowel in a certain text. You just have to write some text in the top text input and your character statistics will be updated as you are typing in real time without any lag. 
 Below the number of consonants will be displayed the top 3 consonants and how many times they appeared in the text. The same happens for the vowels.
@@ -49,7 +49,7 @@ The [logic](./src/components/TextAnalyzer.js) of the app has been tested [here](
 
 **Efficient and fast.** Typing shouldn't cause any freezing.
 
-Yes, you can test it [here](https://rawgit.com/hackhat/eike-test/v0.0.1/dist/index.html).
+Yes, you can test it [here](https://rawgit.com/hackhat/eike-test/v0.0.2/dist/index.html).
 There was no need to use a webworker in this case ([IE8 also doesn't support them](http://caniuse.com/#search=webworker)).
 
 **Separation of concerns.** The DOM updates should be handled separately from the other logic.
@@ -62,4 +62,4 @@ The logic of the app is in the [TextAnalyzer.js](./src/components/TextAnalyzer.j
   <img src ="./docs/ie8support.jpg" />
 </p>
 
-Yes, has been tested with [browserstack](https://www.browserstack.com/start#os=Windows&os_version=7&browser=IE&browser_version=8.0&zoom_to_fit=true&full_screen=true&autofit=true&url=http%3A%2F%2Flocalhost%3A8000%2F&resolution=1024x768&speed=1&host_ports=google.com%2C80%2C0) (Win7 @ IE8), but you can also test it by opening [this link](https://rawgit.com/hackhat/eike-test/v0.0.1/dist/index.html) on IE8 browser.
+Yes, has been tested with [browserstack](https://www.browserstack.com/start#os=Windows&os_version=7&browser=IE&browser_version=8.0&zoom_to_fit=true&full_screen=true&autofit=true&url=http%3A%2F%2Flocalhost%3A8000%2F&resolution=1024x768&speed=1&host_ports=google.com%2C80%2C0) (Win7 @ IE8), but you can also test it by opening [this link](https://rawgit.com/hackhat/eike-test/v0.0.2/dist/index.html) on IE8 browser.
